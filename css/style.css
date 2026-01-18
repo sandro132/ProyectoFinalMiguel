@@ -1,0 +1,136 @@
+/* style.scss */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: system-ui, sans-serif;
+}
+
+body {
+  background: linear-gradient(135deg, #052e16, #022c22);
+  color: #ecfdf5;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.juego {
+  background-color: #14532d;
+  padding: 2rem;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 420%;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.tituloJuego {
+  margin-bottom: 1.5rem;
+  font-size: 1.8rem;
+  color: #4ade80;
+}
+
+.arenaJuego {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+.arenaJuego .usuario,
+.arenaJuego .bot {
+  background-color: #166534;
+  padding: 1rem;
+  border-radius: 12px;
+  width: 45%;
+}
+.arenaJuego .usuario h2,
+.arenaJuego .bot h2 {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  color: #bbf7d0;
+}
+.arenaJuego .usuario p,
+.arenaJuego .bot p {
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+
+.opcionesJuego {
+  margin-bottom: 1.5rem;
+}
+.opcionesJuego #menjase {
+  margin-bottom: 1rem;
+  color: #bbf7d0;
+}
+.opcionesJuego #opcines {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+}
+
+.opcion {
+  background-color: #22c55e;
+  color: #022c22;
+  border: none;
+  border-radius: 12px;
+  padding: 0.6rem 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+.opcion:hover {
+  background-color: #4ade80;
+  transform: translateY(-2px);
+}
+.opcion:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none;
+}
+
+#estado {
+  margin-bottom: 1rem;
+}
+#estado #vidas {
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+#estado #resultado {
+  color: #4ade80;
+}
+
+#reset {
+  margin-top: 1rem;
+  padding: 0.6rem 1.2rem;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  background-color: #064e3b;
+  color: #ecfdf5;
+  transition: 0.2s ease;
+}
+#reset:hover {
+  background-color: #166534;
+}
+
+#estadisticas {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: #bbf7d0;
+}
+
+@media (max-width: 480px) {
+  .arenaJuego {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .arenaJuego .usuario,
+  .arenaJuego .bot {
+    width: 100%;
+  }
+  #opciones {
+    flex-direction: column;
+  }
+}
+
+/*# sourceMappingURL=style.css.map */

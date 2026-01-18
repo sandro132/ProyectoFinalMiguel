@@ -1,0 +1,172 @@
+/* style.scss */
+
+
+// VARIABLES //
+$verde-oscuro: #052e16;
+$verde-principal: #14532d;
+$verde-medio: #166534;
+$verde-claro: #22c55e;
+$verde-hover: #4ade80;
+
+$texto-claro: #ecfdf5;
+$texto-suave: #bbf7d0;
+
+$radio: 12px;
+$transicion: 0.2s ease;
+
+// RESET BASICO //
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: system-ui, sans-serif;
+}
+
+
+// BODY //
+body {
+    background: linear-gradient(135deg, $verde-oscuro, #022c22);
+    color: $texto-claro;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+// CONTENEDOR PRINCIPAL //
+
+.juego {
+    background-color: $verde-principal;
+    padding: 2rem;
+    border-radius: $radio;
+    width: 100%;
+    max-width: 420%;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0,0.4);
+}
+
+// TITULO //
+.tituloJuego {
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+    color: $verde-hover;
+}
+
+// ARENA //
+.arenaJuego {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+
+    .usuario,
+    .bot {
+        background-color: $verde-medio;
+        padding: 1rem;
+        border-radius: $radio;
+        width: 45%;
+
+        h2{
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            color: $texto-suave;
+        }
+
+        p {
+            font-size: 1.4rem;
+            font-weight: bold;
+        }
+    }
+}
+
+// OPCIONES //
+.opcionesJuego {
+    margin-bottom: 1.5rem;
+
+    #menjase {
+        margin-bottom: 1rem;
+        color: $texto-suave;
+    }
+
+    #opcines {
+        display: flex;
+        gap: 0.75rem;
+        justify-content: center;
+    }
+}
+
+// BOTONES DE JUEGO //
+.opcion {
+    background-color: $verde-claro;
+    color: #022c22;
+    border: none;
+    border-radius: $radio;
+    padding: 0.6rem 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: $transicion;
+
+    &:hover {
+        background-color: $verde-hover;
+        transform: translateY(-2px);
+    }
+
+    &:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+        transform: none;
+    }
+}
+
+// ESTADO DE JUEGO //
+#estado {
+    margin-bottom: 1rem;
+
+    #vidas {
+        margin-bottom: 0.5rem;
+        font-weight: bold;
+    }
+
+    #resultado {
+        color: $verde-hover;
+    }
+}
+
+// BOTON RESET //
+#reset {
+    margin-top: 1rem;
+    padding: 0.6rem 1.2rem;
+    border-radius: $radio;
+    border: none;
+    cursor: pointer;
+    background-color: #064e3b;
+    color: $texto-claro;
+    transition: $transicion;
+
+    &:hover {
+        background-color: $verde-medio;
+    }
+}
+
+// ESTADISTICAS // 
+#estadisticas {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    color: $texto-suave;
+}
+
+// CONTENEDOR PRINCIPAL //
+@media (max-width: 480px) {
+    .arenaJuego {
+        flex-direction: column;
+        gap: 1rem;
+
+        .usuario,
+        .bot {
+            width: 100%;
+        }
+    }
+
+    #opciones {
+        flex-direction: column;
+    }
+}

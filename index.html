@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+    <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Piedra Papel Tijeras</title>
+        <link rel="stylesheet" href="css/style.css">
+    </head>
+    <body>
+            <main class="juego">
+
+                <h1 class="tituloJuego">Piedra Papel o Tijeras</h1>
+                
+                <!-- Seccion de la Arena -->
+                <section class="arenaJuego">
+                    <div class="usuario">
+                        <h2>Usuario: </h2>
+                        <p id="jugada-usuario">—</p>
+                    </div>
+
+                    <div class="bot">
+                        <h2>Bot: </h2>
+                        <p id="jugada-bot">—</p>
+                    </div>
+                </section>
+                
+                <!-- Seccion de botones-->
+                <section class="opcionesJuego">
+                    <p id="Mensaje">Selecciona tu jugada</p>
+
+                    <div id="opciones">
+                        <button class="opcion" data-opcion="piedra">🪨  Piedra</button>
+                        <button class="opcion" data-opcion="papel">📄  Papel</button>
+                        <button class="opcion" data-opcion="tijera">✂️ Tijera</button>
+                    </div>
+                </section>
+
+                <!-- Estado del juego -->
+                <div id="estado">
+                    <p id="vidas">❤️ Usuario: 3 | 🤖 Bot: 3</p>
+                    <p id="resultado">Esperando Jugada...</p>
+                </div>
+
+                <button id="reset">🔄 Reiniciar juego</button>
+                
+                <div id="estadisticas">
+                    <p id="stats"></p>
+                </div>
+            </main>
+
+            <script src="js/script.js"></script>
+        
+    </body>
+</html>
