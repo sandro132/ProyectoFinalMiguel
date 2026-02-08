@@ -170,3 +170,31 @@ body {
         flex-direction: column;
     }
 }
+
+
+// Estilo Swal //
+
+.swal-verde {
+    background-color: $verde-principal !important;
+    color: $texto-claro !important;
+    border-radius: $radio;
+
+    .swal-title {
+        color: $verde-hover;
+    }
+
+    .swal2-html-container {
+        color: $texto-suave;
+    }
+}
+
+.swal-verde {
+    background-color: $verde-claro !important;
+    color: #022c22 !important;
+    border-radius: $radio !important;
+    transition: $transicion;
+
+    &:hover {
+        background-color: $verde-hover !important;
+    }
+}

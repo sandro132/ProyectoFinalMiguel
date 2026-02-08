@@ -1,14 +1,14 @@
+let jugadas = [];
+
 // Vidas iniciales
-let vidaUsuario = 3;
-let vidaBot = 3;
+const VIDAS_INICIALES = 3;
+let vidaUsuario = VIDAS_INICIALES;
+let vidaBot = VIDAS_INICIALES;
 let estadisticas = {
     partidas: 0,
     ganadas: 0,
     perdidas: 0,
 }
-
-// Opciones disponibles
-const opciones = ["piedra", "papel", "tijera"];
 
 // Elementos DOM
 const vidas = document.querySelector("#vidas");
@@ -18,6 +18,23 @@ const jugadaUsuarioTexto = document.querySelector("#jugada-usuario");
 const jugadaBotTexto = document.querySelector("#jugada-bot")
 const botonReset = document.querySelector("#reset");
 const statsTexto = document.querySelector("#stats");
+
+const mensaje = {
+    victoria: [
+        "🌿 Dominaste la arena. El bot cayó.",
+        "🍀 Jugada perfecta. El bot se quedó sin vidas.",
+        "⚔️ Victoria total. La estrategia fue impecable."
+    ],
+    derrota: [
+        "🪦 La arena fue cruel esta vez...",
+        "🌑 El bot se impuso. Intenta otra estrategia.",
+        "⚠️ Derrota. La suerte no estuvo de tu lado."
+    ]
+};
+
+function mensajeAleatorio(lista) {
+    return lista[Math.floor(Math.random() * lista.length)];
+}
 
 function mostrarEstadisticas() {
     statsTexto.textContent = `📊 Partidas: ${estadisticas.partidas} | 🏆 Ganadas: ${estadisticas.ganadas} | 💀 Perdidas: ${estadisticas.perdidas}`;
@@ -33,6 +50,18 @@ function cargarEstadisticas() {
     }
 }
 
+// Carga del json //
+async function cargarJugadas() {
+    try {
+        const response = await fetch("data/jugadas.json");
+        const data = await response.json();
+        jugadas = data.opciones;
+    } catch (error) {
+        console.error("Error cargando jugadas", error);
+    }
+}
+
+
 // Guardar estadisticas locales //
 function guardarEstadisticas() {
     localStorage.setItem(
@@ -43,8 +72,8 @@ function guardarEstadisticas() {
 
 //Juagada del bot
 function opcionBot() {
-    const numero = Math.floor(Math.random() * opciones.length);
-    return opciones[numero];
+    const numero = Math.floor(Math.random() * jugadas.length);
+    return jugadas[numero].nombre.toLowerCase();
 }
 
 // Determinar el ganador de la ronda
@@ -56,12 +85,16 @@ function ganadorRonda (jugadaUsuario, jugadaBot) {
         return; 
     }
 
-    // Condiciones de victoria del usuario
-    if (
-        (jugadaUsuario === "piedra" && jugadaBot === "tijera") ||
-        (jugadaUsuario === "papel" && jugadaBot === "piedra") ||
-        (jugadaUsuario === "tijera" && jugadaBot === "papel")
-    ) {
+    const jugada = jugadas.find(j => j.nombre === jugadaUsuario);
+
+    if (!jugada) {
+        console.error("Jugada no encontrada", jugadaUsuario);
+        return;
+    }
+
+    const ganaUsuario = jugada.vence === jugadaBot;
+
+    if (ganaUsuario) {
         vidaBot--;
         resultado.textContent = `✨ ¡Ganaste la ronda! El bot eligió ${jugadaBot}`;
     } else {
@@ -75,21 +108,46 @@ function ganadorRonda (jugadaUsuario, jugadaBot) {
 
 // Muestra de estado de vida
 function actualizarVidas() {
-    vidas.textContent = `❤️ Usuario: ${vidaUsuario} | 🤖 Bot: ${vidaBot}`;
+    vidas.innerHTML = 
+    `❤️ Usuario: ${"❤️".repeat(vidaUsuario)} 
+    <br>
+    
+    🤖 Bot: ${"❤️".repeat(vidaBot)}
+    `;
 }
 
 // Verificacion de fin del juego
 function verificarFinJuego() {
     if (vidaUsuario === 0) {
-        resultado.textContent = "💀 Has perdido. El bot ganó la partida.";
+        Swal.fire({
+            title:"💀 Fin del juego",
+            text: mensajeAleatorio(mensaje.derrota),
+            icon: "error",
+            confirmButtonText: "Reintentar",
+            customClass: {
+                popup: "swal-verde",
+                confirmButton: "swal-boton-verde"
+            }
+        });
+        
         estadisticas.partidas++;
         estadisticas.perdidas++;
         guardarEstadisticas();
         mostrarEstadisticas();
         desactivarBotones();
-
+        
     } else if (vidaBot === 0) {
-        resultado.textContent = "🏆 ¡Ganaste! Dejaste al bot sin vidas.";
+        Swal.fire({
+            title:"🏆 Fin del juego",
+            text: mensajeAleatorio(mensaje.victoria),
+            icon: "success",
+            confirmButtonText: "Jugar de nuevo",
+            customClass: {
+                popup: "swal-verde",
+                confirmButton: "swal-boton-verde"
+            }
+        });
+
         estadisticas.partidas++;
         estadisticas.ganadas++;
         guardarEstadisticas();
@@ -124,7 +182,8 @@ function activarBotones() {
 }
 
 // Inicio del juego
-function iniciarJuego() {
+async function iniciarJuego() {
+    await cargarJugadas();
     cargarEstadisticas();
     mostrarEstadisticas();
     vidaUsuario = 3;
@@ -136,7 +195,7 @@ function iniciarJuego() {
         boton.addEventListener("click", () => {
             if (vidaUsuario === 0 || vidaBot === 0)
                 return;
-            const jugadaUsuario = boton.dataset.opcion;
+            const jugadaUsuario = boton.dataset.opcion.toLowerCase();
             const jugadaBot = opcionBot();
 
                 jugadaUsuarioTexto.textContent = jugadaUsuario;

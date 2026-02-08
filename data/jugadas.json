@@ -1,0 +1,19 @@
+{
+    "opciones": [
+        {
+            "nombre": "piedra",
+            "emoji": "🪨",
+            "vence": "tijera"
+        },
+        {
+            "nombre": "papel",
+            "emoji": "📄",
+            "vence": "piedra"
+        },
+        {
+            "nombre": "tijera",
+            "emoji": "✂️",
+            "vence": "papel"
+        }
+    ]
+}
